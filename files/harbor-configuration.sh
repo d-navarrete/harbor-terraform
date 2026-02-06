@@ -1,12 +1,21 @@
 #!/bin/bash
 
-# Installing docker, you can change the version below
+# Installing docker, you can change the version below or in the terraform vars
+sudo apt-get update
+sudo apt-get install -y ca-certificates curl gnupg
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+
 curl -sL https://releases.rancher.com/install-docker/${docker_version}.sh | sh
 
 # Installing docker compose
-mkdir -p /root/.docker/cli-plugins
-curl -SL https://github.com/docker/compose/releases/download/v2.24.1/docker-compose-linux-x86_64 -o /root/.docker/cli-plugins/docker-compose
-chmod +x /root/.docker/cli-plugins/docker-compose
+sudo apt-get install -y docker-compose-plugin
 
 # Configuring the firewall
 
@@ -58,5 +67,3 @@ sed -i 's/Harbor12345/${harbor_password}/g' harbor.yml
 sed -i 's/root123/${harbor_password}/g' harbor.yml
 
 sudo ./install.sh
-
-
