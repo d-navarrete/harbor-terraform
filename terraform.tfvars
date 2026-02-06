@@ -10,8 +10,8 @@ harbor_password = ""
 #Email needs to be valid, otherwise certbot will fail
 email = ""
 
-#Tested on versions 19.03.15 and 23.0.6
-docker_version = "23.0.6"
+#Adjust to a current version of Docker
+docker_version = "25.0.5"
 
 #DigitalOcean region
 region = "fra1"
