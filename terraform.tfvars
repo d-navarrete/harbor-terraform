@@ -11,7 +11,7 @@ harbor_password = ""
 email = ""
 
 #Adjust to a current version of Docker
-docker_version = "25.0.5"
+docker_version = "29.2.0"
 
 #DigitalOcean region
 region = "fra1"
